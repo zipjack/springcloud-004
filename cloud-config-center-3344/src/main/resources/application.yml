@@ -1,0 +1,40 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: cloud-config-center #注册进Eureka服务器的微服务名
+  cloud:
+    config:
+      server:
+        git:
+          #uri必须要用这个https开头的东西
+          uri: https://github.com/zipjack/springcloud-config.git
+          ####搜索目录
+          search-paths:
+          - spring-config
+          username: zipjack
+          password: 1wasd876
+        ####读取分支
+      label: master
+  #rabbitmq相关配置，15672是web管理页面地端口，5672是mq访问端口
+  rabbitmq:
+    #host: localhost
+    #port: 5672
+    host: 175.24.111.162 #设置为远程主机
+    port: 5672
+    username: root
+    password: 123456
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+
+# 暴露bus刷新配置的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"
